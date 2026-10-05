@@ -852,3 +852,50 @@ textarea.campo-ok {
   width: 100%;
   min-width: 640px;
 }
+
+
+/* ===== Acessibilidade (WCAG 2.1 AA) ===== */
+
+/* Link "Pular para o conteúdo": escondido até receber foco pelo Tab */
+.pular-link {
+  position: absolute;
+  top: -100px;
+  left: 8px;
+  z-index: 1000;
+  padding: 8px 16px;
+  background: #1f5c41;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.pular-link:focus {
+  top: 8px;
+}
+
+/* Foco visível e com bom contraste em tudo que é interativo */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #1f5c41;
+  outline-offset: 2px;
+}
+
+/* O <main> recebe foco pelo código; não precisa de contorno */
+main:focus {
+  outline: none;
+}
+
+/* Respeita quem prefere menos animação no sistema */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

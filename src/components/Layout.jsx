@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink, Link, Outlet, useLocation } from "react-router-dom";
 
 // Título e subtítulo do header de cada rota
@@ -28,7 +28,9 @@ const cabecalhoPadrao = {
 
 export default function Layout() {
   const [menuAberto, setMenuAberto] = useState(false);
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
+  const mainRef = useRef(null);
+  const rotaAnterior = useRef(pathname);
 
   const cabecalho = cabecalhos[pathname] ?? cabecalhoPadrao;
   const ehHome = pathname === "/";
@@ -40,13 +42,32 @@ export default function Layout() {
       : `${cabecalho.titulo} | ONG Patas do Bem`;
   }, [ehHome, cabecalho.titulo]);
 
+  // Acessibilidade: ao trocar de página, leva o foco para o conteúdo novo
+  useEffect(() => {
+    if (rotaAnterior.current === pathname) return; // primeira carga: não mexe
+    rotaAnterior.current = pathname;
+    if (!hash) window.scrollTo(0, 0);
+    mainRef.current?.focus({ preventScroll: true });
+  }, [pathname, hash]);
+
   // Fecha o menu hambúrguer ao clicar em um link
   function fecharMenu() {
     setMenuAberto(false);
   }
 
+  // Link "Pular para o conteúdo": foca o <main> sem trocar a rota
+  function pularParaConteudo(evento) {
+    evento.preventDefault();
+    mainRef.current?.focus();
+    mainRef.current?.scrollIntoView();
+  }
+
   return (
     <div id="interface">
+      <a href="#conteudo" className="pular-link" onClick={pularParaConteudo}>
+        Pular para o conteúdo
+      </a>
+
       <header>
         <h1>{cabecalho.titulo}</h1>
         <p>{cabecalho.subtitulo}</p>
@@ -60,7 +81,7 @@ export default function Layout() {
         )}
       </header>
 
-      <nav>
+      <nav aria-label="Menu principal">
         <h2>Menu Principal</h2>
         <input
           type="checkbox"
@@ -117,7 +138,7 @@ export default function Layout() {
         </ul>
       </nav>
 
-      <main>
+      <main id="conteudo" ref={mainRef} tabIndex={-1}>
         <Outlet />
       </main>
 
