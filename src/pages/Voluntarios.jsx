@@ -9,6 +9,12 @@ function rotulo(lista, valor) {
   return lista.find((item) => item.valor === valor)?.rotulo ?? valor;
 }
 
+// Converte a data salva (ISO) para o formato brasileiro, ex.: 05/10/2026
+function formatarData(dataIso) {
+  if (!dataIso) return "-";
+  return new Date(dataIso).toLocaleDateString("pt-BR");
+}
+
 export default function Voluntarios() {
   const [voluntarios, setVoluntarios] = useState(() => listarVoluntarios());
   const { mostrarToast, confirmar } = useFeedback();
@@ -49,6 +55,7 @@ export default function Voluntarios() {
                   <th scope="col">Área</th>
                   <th scope="col">Disponibilidade</th>
                   <th scope="col">Contato</th>
+                  <th scope="col">Cadastrado em</th>
                   <th scope="col">Ação</th>
                 </tr>
               </thead>
@@ -65,6 +72,9 @@ export default function Voluntarios() {
                       {v.email}
                       <br />
                       {v.telefone}
+                    </td>
+                    <td>
+                      <time dateTime={v.criadoEm}>{formatarData(v.criadoEm)}</time>
                     </td>
                     <td>
                       <button type="button" onClick={() => remover(v)}>

@@ -16,7 +16,8 @@ Site da ONG fictícia de proteção animal **Patas do Bem**, desenvolvido como p
 - **Máscaras automáticas** para CPF, telefone e CEP.
 - **Bloqueio de CPF duplicado.**
 - **Persistência com localStorage:** os cadastros continuam salvos após recarregar ou fechar o navegador.
-- **Feedback visual:** bordas e mensagens de erro nos campos, toasts de sucesso e erro e modal de confirmação para remover cadastros.
+- **Lista de voluntários** com data de cadastro e remoção com confirmação.
+- **Feedback visual:** bordas e mensagens de erro nos campos, toasts de sucesso e erro e modal de confirmação.
 - **Menu responsivo:** hambúrguer no celular e menu horizontal com submenu a partir de 768px.
 
 ## Tecnologias
@@ -28,7 +29,7 @@ Site da ONG fictícia de proteção animal **Patas do Bem**, desenvolvido como p
 | Vite | Servidor de desenvolvimento e build de produção |
 | CSS3 | Design System com variáveis, Grid, Flexbox e 5 breakpoints |
 | localStorage | Armazenamento dos cadastros no navegador |
-| Git e GitHub | Versionamento com branches e Pull Requests |
+| Git e GitHub | Versionamento com GitFlow e Pull Requests |
 | Vercel | Hospedagem com deploy contínuo |
 
 ## Estrutura de pastas
@@ -108,11 +109,17 @@ Notas do Lighthouse (modo mobile, versão de produção):
 
 Otimizações aplicadas: build minificado do Vite com nomes de arquivo com hash (cache seguro), imagem em WebP com largura e altura definidas, meta description e `robots.txt`.
 
-## Fluxo de trabalho com Git
+## Fluxo de trabalho com Git (GitFlow)
 
-- A branch `main` contém sempre a versão estável, publicada automaticamente na Vercel.
-- Cada melhoria é feita em uma branch própria (`feat/...`, `chore/...`, `docs/...`) e incorporada à `main` por Pull Request.
-- As mensagens de commit seguem o padrão **Conventional Commits** (`feat`, `chore`, `docs`, `fix`).
+| Branch | Função |
+|---|---|
+| `main` | Versões de lançamento, marcadas com tags (`v1.0.0`). Cada merge publica o site em produção na Vercel. |
+| `develop` | Integração do desenvolvimento contínuo. Recebe as features prontas. |
+| `feature/...` | Uma funcionalidade nova. Nasce da `develop` e volta para ela por Pull Request. |
+| `release/...` | Preparação de uma versão (número da versão e documentação). Vai para a `main` e volta para a `develop`. |
+| `hotfix/...` | Correção urgente em produção. Nasce da `main` e volta para a `main` e para a `develop`. |
+
+As mensagens de commit seguem o padrão **Conventional Commits** (`feat`, `fix`, `docs`, `chore`). Antes da adoção do GitFlow, as primeiras melhorias (acessibilidade, preparação para deploy e documentação) foram feitas em branches curtas integradas direto à `main`.
 
 ## Limitações conhecidas
 
