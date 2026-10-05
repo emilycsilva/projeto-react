@@ -1,16 +1,19 @@
-# React + Vite
+# ONG Patas do Bem 🐾
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Toda pata merece um lar.
 
-Currently, two official plugins are available:
+Site da ONG fictícia de proteção animal **Patas do Bem**, desenvolvido como projeto acadêmico de Front-end. O projeto começou com páginas em HTML, CSS e JavaScript puro e foi migrado para uma **Single Page Application (SPA)** com React e Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+🔗 **Site no ar:** https://projeto-react-delta-ten.vercel.app
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Funcionalidades
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Navegação SPA:** troca de páginas sem recarregar, com React Router e suporte aos botões voltar e avançar.
+- **Páginas:** Início, Projetos (com rolagem até as seções), Cadastro de voluntários, Lista de voluntários e página 404.
+- **Formulário com validação em tempo real:** campos obrigatórios, nome e sobrenome, CPF com dígitos verificadores, idade mínima de 18 anos, e-mail, telefone e CEP.
+- **Máscaras automáticas** para CPF, telefone e CEP.
+- **Bloqueio de CPF duplicado.**
+- **Persistência com localStorage:** os cadastros continuam salvos após recarregar ou fechar o navegador.
+-
